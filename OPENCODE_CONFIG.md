@@ -10,8 +10,8 @@ Global config: `~/.config/opencode/opencode.json`
 |-------|-------|------|---------------------|
 | **build** | Claude Opus 4.6 | Primary - code generation & edits | $5 in / $25 out |
 | **plan** | Claude Sonnet 4.6 | Primary - analysis without edits | $3 in / $15 out |
-| **general** | Claude Sonnet 4.6 | Subagent - research & multi-step tasks | $3 in / $15 out |
-| **explore** | Claude Haiku 4.5 | Subagent - read-only codebase search | $1 in / $5 out |
+| **general** | Claude Sonnet 4.6 | Primary + Subagent (`mode: all`) - research & multi-step tasks | $3 in / $15 out |
+| **explore** | Claude Haiku 4.5 | Primary + Subagent (`mode: all`) - read-only codebase search | $1 in / $5 out |
 | **title** | Claude Haiku 4.5 | System - session title generation | $1 in / $5 out |
 | **summary** | Claude Haiku 4.5 | System - session summary | $1 in / $5 out |
 | **compaction** | Claude Sonnet 4.6 | System - context compaction | $3 in / $15 out |
@@ -27,8 +27,8 @@ Global config: `~/.config/opencode/opencode.json`
 
 - **Build (Opus 4.6):** Highest quality model for the primary task — writing and editing code. This is where quality matters most.
 - **Plan (Sonnet 4.6):** Analysis and code review don't need Opus-level intelligence. Sonnet is 40% cheaper and excellent for planning.
-- **General (Sonnet 4.6):** Multi-step research tasks. Sonnet handles these well at 40% less cost.
-- **Explore (Haiku 4.5):** Read-only file search, grep, glob. Haiku is more than capable at 80% cheaper.
+- **General (Sonnet 4.6, `mode: all`):** Multi-step research tasks. Tab-switchable so you can use it as a primary agent, and still available as a subagent. Sonnet handles these well at 40% less cost.
+- **Explore (Haiku 4.5, `mode: all`):** Read-only file search, grep, glob. Tab-switchable for quick codebase exploration, and still available as a subagent. Haiku is more than capable at 80% cheaper.
 - **Title/Summary (Haiku 4.5):** Trivial tasks (5-word titles, short summaries). 80% cheaper.
 - **Compaction (Sonnet 4.6):** Context summarization. Sonnet handles this well.
 
@@ -41,10 +41,12 @@ Assuming subagents and system agents consume ~40% of total tokens:
 
 ## Usage Tips
 
-1. **Use Plan mode first** (Tab key) to analyze before building — runs on cheaper Sonnet
-2. **Use `@explore`** for codebase questions instead of letting Build search with Opus
-3. **Set monthly limits** in Zen dashboard to avoid surprises
-4. **Switch models on the fly** with `/models` when you need Opus for a complex task
+1. **Use Tab to cycle agents:** Build -> Plan -> General -> Explore. All four are Tab-switchable.
+2. **Use Explore mode** (Tab to it) for codebase questions instead of letting Build search with Opus
+3. **Use General mode** (Tab to it) for research tasks — runs on cheaper Sonnet with full tool access
+4. **Use `@explore` or `@general`** to invoke them as subagents from Build or Plan mode
+5. **Set monthly limits** in Zen dashboard to avoid surprises
+6. **Switch models on the fly** with `/models` when you need Opus for a complex task
 
 ## Config Snapshot
 
@@ -62,10 +64,12 @@ Assuming subagents and system agents consume ~40% of total tokens:
     },
     "general": {
       "model": "opencode/claude-sonnet-4-6",
+      "mode": "all",
       "steps": 15
     },
     "explore": {
       "model": "opencode/claude-haiku-4-5",
+      "mode": "all",
       "steps": 10
     },
     "title": {

@@ -1,4 +1,4 @@
-# AI Coding Tools - Cost-Optimized Setup
+# dev-agents-setup
 
 Cost-optimized configurations for [OpenCode](https://opencode.ai) and [Claude Code](https://claude.ai/code) that assign the right model to each agent, cutting your bill by 30-50% without sacrificing quality.
 

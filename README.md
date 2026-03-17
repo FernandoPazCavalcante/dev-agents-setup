@@ -7,7 +7,10 @@ Cost-optimized configurations for [OpenCode](https://opencode.ai) and [Claude Co
 ```
 .
 ├── opencode/
-│   ├── opencode.json        # Global config → ~/.config/opencode/opencode.json
+│   ├── configs/
+│   │   ├── anthropic.json   # Use your Anthropic API key directly
+│   │   └── zen.json         # Use OpenCode's Zen platform billing
+│   ├── switch.sh            # Switch between providers
 │   └── OPENCODE_CONFIG.md   # Rationale and cost breakdown
 └── claude-code/
     ├── settings.json        # Global config → ~/.claude/settings.json
@@ -34,10 +37,17 @@ Cost-optimized configurations for [OpenCode](https://opencode.ai) and [Claude Co
 
 ### Quick Start
 
+Choose your billing provider and run the switch script:
+
 ```bash
-mkdir -p ~/.config/opencode
-cp opencode/opencode.json ~/.config/opencode/opencode.json
+# Use your Anthropic API key
+./opencode/switch.sh anthropic
+
+# Use OpenCode's Zen platform
+./opencode/switch.sh zen
 ```
+
+This copies the chosen config to `~/.config/opencode/opencode.json`. Run it any time to switch providers.
 
 Launch OpenCode and press `Tab` to cycle through agents: **Build → Plan → General → Explore**.
 
